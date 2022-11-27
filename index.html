@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array of objects in local</title>
+</head>
+
+<body>
+    <!-- <form> -->
+        <input id="title" type="text" placeholder="Title">
+        <br>
+        <textarea id="description" placeholder="Description" cols="30" rows="10"></textarea>
+        <br>
+        <button type="submit" onclick="submit()">Submit</button>
+        <button>click</button>
+    <!-- </form> -->
+
+    <div id="display">
+
+    </div>
+
+
+
+    <script>
+
+        let submit = () => {
+            let dataFromUser = getFromUser();
+            console.log(dataFromUser);
+
+            let dataFromLocal = storeLocally(dataFromUser);
+
+            displayData(dataFromLocal);
+        }
+
+
+        // Take data
+        let getFromUser = () => {
+            let title = document.getElementById("title").value;
+            let description = document.getElementById("description").value;
+
+            let obj = {
+                titleObj: title,
+                descriptionObj: description
+            }
+
+            let arrOfObj = [obj]
+            
+
+            return arrOfObj;
+        }
+
+
+        // Store in local Storage
+        let storeLocally = (arrayFromUser) => {     // Taking array of objects from user
+            let dataSet = localStorage.setItem("noteData", JSON.stringify(arrayFromUser));
+
+            let dataGet = JSON.parse(localStorage.getItem("noteData", dataSet));
+            console.log(dataGet);
+            return dataGet;
+        }
+
+
+        // Display data
+        let displayData = (dataFromLocal) => {      // Taking array of Objects from Local Storage
+            let display = document.getElementById("display");
+
+            let childDiv = document.createElement("div");
+            childDiv.innerHTML = `<p> ${dataFromLocal[0].titleObj} , ${dataFromLocal[0].descriptionObj} </p>`
+
+            display.appendChild(childDiv);
+        }
+
+        // localStorage.clear();
+    </script>
+</body>
+
+</html>
