@@ -8,14 +8,21 @@
     <title>Array of objects in local</title>
 </head>
 
+<style>
+    body {
+        background-color: rgb(3, 3, 40);
+        color: white;
+    }
+</style>
+
 <body>
     <!-- <form> -->
-        <input id="title" type="text" placeholder="Title">
-        <br>
-        <textarea id="description" placeholder="Description" cols="30" rows="10"></textarea>
-        <br>
-        <button type="submit" onclick="submit()">Submit</button>
-        <button>click</button>
+    <input id="title" type="text" placeholder="Title">
+    <br>
+    <textarea id="description" placeholder="Description" cols="30" rows="10"></textarea>
+    <br>
+    <button type="submit" onclick="submit()">Submit</button>
+    <button>click</button>
     <!-- </form> -->
 
     <div id="display">
@@ -46,31 +53,29 @@
                 descriptionObj: description
             }
 
-            let arrOfObj = [obj]
-            
-
+            let arrOfObj = [];
+            let x = arrOfObj.push(obj);
             return arrOfObj;
         }
-
 
         // Store in local Storage
         let storeLocally = (arrayFromUser) => {     // Taking array of objects from user
             let dataSet = localStorage.setItem("noteData", JSON.stringify(arrayFromUser));
-
             let dataGet = JSON.parse(localStorage.getItem("noteData", dataSet));
+
             console.log(dataGet);
             return dataGet;
         }
-
 
         // Display data
         let displayData = (dataFromLocal) => {      // Taking array of Objects from Local Storage
             let display = document.getElementById("display");
 
-            let childDiv = document.createElement("div");
-            childDiv.innerHTML = `<p> ${dataFromLocal[0].titleObj} , ${dataFromLocal[0].descriptionObj} </p>`
-
-            display.appendChild(childDiv);
+            for (let i = 0; i < dataFromLocal.length; i++) {
+                let childDiv = document.createElement("div");
+                childDiv.innerHTML = `<p> ${dataFromLocal[i].titleObj} , ${dataFromLocal[i].descriptionObj} </p>`
+                display.appendChild(childDiv);
+            }
         }
 
         // localStorage.clear();
